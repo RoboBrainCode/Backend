@@ -21,4 +21,4 @@ This will also install Django for you, further any Django project created will u
 
 http://2buntu.com/articles/1451/installing-django-and-mongodb-in-your-virtualenv/
 
-PS: There is no nees to setup virtualenv.
+PS: There is no needs to setup virtualenv.
