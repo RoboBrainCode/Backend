@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'Backend_django.views.home', name='home'),
     url(r'^feed/', include('feed.urls')),
-
+    url(r'^api/',include('rest_api.urls'))
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

@@ -1,6 +1,7 @@
 from django.db import models
 from djangotoolbox.fields import ListField
 from datetime import datetime
+from django.db.models.signals import post_save
 
 class BrainFeeds(models.Model):
 	toshow = models.BooleanField(default=True)
@@ -33,7 +34,7 @@ class JsonFeeds(models.Model):
 	source_url = models.TextField()
 	mediashow = ListField()
 	created_at = models.DateTimeField()
-	hashtags = models.TextField()
+	hashtags = models.TextField(default=datetime.now, blank=True)
 	meta = {'indexes':['hashtags']}
 	nodes = ListField()
 	factors = ListField()
@@ -44,6 +45,13 @@ class JsonFeeds(models.Model):
 	
 	class Meta:
 		db_table = 'json_feeds'
+
+def postSaveJson(**kwargs):
+	instance = kwargs.get('instance')
+	print instance.to_json()
+	#Extra stuff
+
+post_save.connect(postSaveJson, JsonFeeds)
 
 class ViewerFeed(models.Model):
 	feedid = models.TextField()
