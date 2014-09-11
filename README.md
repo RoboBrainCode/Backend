@@ -7,6 +7,7 @@ Backend_django
 http://django-mongodb-engine.readthedocs.org/en/latest/topics/setup.html
 
 ** Execute the following commands:
+
 1. sudo pip install git+https://github.com/django-nonrel/django@nonrel-1.5
 
 2. sudo pip install git+https://github.com/django-nonrel/djangotoolbox
