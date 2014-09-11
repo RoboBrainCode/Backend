@@ -122,7 +122,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'feed',
     'rest_framework',
-    'rest_api'
+    'rest_api',
+    'django_mongodb_engine'
+
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -162,3 +164,11 @@ LOGGING = {
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
+SITE_ID=u'5412347d55caa50c580e16af'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}

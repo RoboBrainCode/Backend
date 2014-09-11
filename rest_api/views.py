@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from feed.models import JsonFeeds
 from rest_api.serializer import FeedSerializer
 from datetime import datetime    
+from rest_framework import permissions
+
 
 @api_view(['GET', 'POST'])
 def feed_list(request):
