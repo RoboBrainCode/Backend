@@ -6,13 +6,16 @@ Backend_django
 
 http://django-mongodb-engine.readthedocs.org/en/latest/topics/setup.html
 
-** Execute the following commands:
+* Execute the following commands:
 
 1. sudo pip install git+https://github.com/django-nonrel/django@nonrel-1.5
 
 2. sudo pip install git+https://github.com/django-nonrel/djangotoolbox
 
 3. sudo pip install git+https://github.com/django-nonrel/mongodb-engine
+
+4. sudo pip install djangorestframework
+
 
 This will also install Django for you, further any Django project created will use MongoDB (and not the default sqlite3).
 
