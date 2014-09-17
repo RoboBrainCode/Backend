@@ -1,10 +1,13 @@
 # Django settings for Backend_django project.
+import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Robobrain', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
@@ -12,11 +15,11 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django_mongodb_engine', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'backend_br',                      # Or path to database file if using sqlite3.
+        'NAME': 'backend_prod',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
-        'HOST': 'ec2-54-186-47-107.us-west-2.compute.amazonaws.com',# Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'HOST': 'ec2-54-186-129-44.us-west-2.compute.amazonaws.com',# Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '27017',                      # Set to empty string for default.
     }
 }
