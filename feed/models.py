@@ -17,7 +17,7 @@ class BrainFeeds(models.Model):
 	upvotes = models.IntegerField(default=0)
 
 	def to_json(self):
-		return {"_id":self.id,"toshow": self.toshow, "feedtype":self.feedtype,"text":self.text,"media":self.media,"source_text":self.source_text,"source_url":self.source_url,"hashtags":self.hashtags,"created_at":self.created_at.isoformat(),"jsonfeed_id":self.jsonfeed_id,"upvotes":self.upvotes}
+		return {"_id":self.id,"toshow": self.toshow, "type":self.feedtype,"feedtype":self.feedtype,"text":self.text,"media":self.media,"source_text":self.source_text,"source_url":self.source_url,"hashtags":self.hashtags,"created_at":self.created_at.isoformat(),"jsonfeed_id":self.jsonfeed_id,"upvotes":self.upvotes}
 		
 	class Meta:
 		db_table = 'brain_feeds'
@@ -41,7 +41,7 @@ class JsonFeeds(models.Model):
 	upvotes = models.IntegerField(default=0)
 
 	def to_json(self):
-		return {"_id":self.id,"feedtype":self.feedtype,"text":self.text,"media":self.media,"mediamap":self.mediamap,"keywords":self.keywords,"source_text":self.source_text,"source_url":self.source_url,"mediashow":self.mediashow,"hashtags":self.hashtags,"created_at":self.created_at.isoformat(),"nodes":self.nodes,"factors":self.factors,"upvotes":self.upvotes}
+		return {"_id":self.id,"type":self.feedtype,"feedtype":self.feedtype,"text":self.text,"media":self.media,"mediamap":self.mediamap,"keywords":self.keywords,"source_text":self.source_text,"source_url":self.source_url,"mediashow":self.mediashow,"hashtags":self.hashtags,"created_at":self.created_at.isoformat(),"nodes":self.nodes,"factors":self.factors,"upvotes":self.upvotes}
 	
 	class Meta:
 		db_table = 'json_feeds'
