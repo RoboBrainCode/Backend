@@ -1,8 +1,8 @@
-Backend_django
+Backend
 ==============
 
 ### Setup Django with MongoDB
-* Follow the URL 
+* Follow the URL
 
 http://django-mongodb-engine.readthedocs.org/en/latest/topics/setup.html
 

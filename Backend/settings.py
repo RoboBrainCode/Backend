@@ -1,5 +1,5 @@
-# Django settings for Backend_django project.
-import os 
+# Django settings for Backend project.
+import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
@@ -105,10 +105,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'Backend_django.urls'
+ROOT_URLCONF = 'Backend.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'Backend_django.wsgi.application'
+WSGI_APPLICATION = 'Backend.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
