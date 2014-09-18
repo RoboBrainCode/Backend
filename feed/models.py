@@ -12,7 +12,7 @@ class BrainFeeds(models.Model):
 	source_url = models.TextField()
 	media = ListField()
 	mediatype = ListField()
-	created_at = models.DateTimeField()
+	created_at = models.DateTimeField(default=datetime.now())
 	hashtags = models.TextField(db_index=True)
 	meta = {'indexes':['hashtags']}
 	upvotes = models.IntegerField(default=0)
@@ -78,9 +78,9 @@ class JsonFeeds(models.Model):
 def postSaveJson(**kwargs):
 	instance = kwargs.get('instance')
 	print instance.to_json()
-	
+
 	#Saving JsonFeed to BrainFeed
-	brain_feed = BrainFeeds.objects.create(
+	brain_feed = BrainFeeds(
 		feedtype=instance.feedtype,
 		text=instance.text,
 		source_text=instance.source_text,
@@ -100,8 +100,13 @@ def postSaveJson(**kwargs):
 	brain_feed.mediatype = mediatype
 	brain_feed.save()
 
+
+	#Saving viewer feed
+	viewer_feed = ViewerFeed(
+		feedid = brain_feed.id
+	)
+	viewer_feed.save()
 	#Saving JsonFeed to GraphDB
-		
 
 post_save.connect(postSaveJson, JsonFeeds)
 
