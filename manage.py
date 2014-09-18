@@ -11,7 +11,7 @@ def change_code_gracefull_reload(sig):
 	 uwsgi.reload()
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Backend.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Backend.settings_production")
     from django.core.management import execute_from_command_line
 
     execute_from_command_line(sys.argv)
