@@ -10,17 +10,19 @@ def prod_deploy(user='ubuntu'):
   env.host_string = 'ec2-54-218-14-187.us-west-2.compute.amazonaws.com'
   env.key_filename = 'conf/www.pem'
   env.user = user
+  env.shell = '/bin/zsh -l -c'
   with cd('/var/www/Backend'):
+    # sudo('su - ubuntu')
     print(green('Checking out test...'))
     run('git checkout test')
     print(green('Pulling latest version of test...'))
-    sudo('git pull')
+    run('git pull')
     print(green('Checking out production...'))
     run('git checkout production')
+    print(green('Merging with test...'))
+    run('git merge  --no-commit test')
     print(green('Pushing production upstream...'))
     run('git push')
-    print(green('Merging with test...'))
-    run('git merge test')
     print(green('Reloading server...'))
     sudo('uwsgi --reload /tmp/robobrain-master.pid')
   print(red('Done!'))
@@ -29,6 +31,7 @@ def test_deploy(user='ubuntu'):
   env.host_string = 'ec2-54-218-20-10.us-west-2.compute.amazonaws.com'
   env.key_filename = 'conf/www.pem'
   env.user = user
+  env.shell = '/bin/zsh -l -c'
   print(red('Deploying to test at test.robobrain.me...'))
   with cd('/var/www/Backend'):
     print(green('Checking out master...'))
@@ -40,7 +43,7 @@ def test_deploy(user='ubuntu'):
     print(green('Pulling latest version of test...'))
     run('git pull')
     print(green('Merging with master...'))
-    run('git merge master')
+    run('git merge  --no-commit master')
     print(green('Push the latest version of master...'))
     run('git push')
     print(green('Reloading server...'))
