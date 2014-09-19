@@ -2,23 +2,37 @@ from django.db import models
 from djangotoolbox.fields import ListField
 from datetime import datetime
 from django.db.models.signals import post_save
+#from feed.models import BrainFeeds
 
 class BrainFeeds(models.Model):
 	toshow = models.BooleanField(default=True)
 	feedtype = models.TextField() #originally feedtype -> type
 	text = models.TextField()
-	media = ListField()
 	source_text = models.TextField()
 	source_url = models.TextField()
+	media = ListField()
+	mediatype = ListField()
+	created_at = models.DateTimeField(default=datetime.now())
 	hashtags = models.TextField(db_index=True)
-	created_at = models.DateTimeField()
 	meta = {'indexes':['hashtags']}
-	jsonfeed_id = models.TextField()
 	upvotes = models.IntegerField(default=0)
-
+	jsonfeed_id = models.TextField()
+	
 	def to_json(self):
-		return {"_id":self.id,"toshow": self.toshow, "type":self.feedtype,"feedtype":self.feedtype,"text":self.text,"media":self.media,"source_text":self.source_text,"source_url":self.source_url,"hashtags":self.hashtags,"created_at":self.created_at.isoformat(),"jsonfeed_id":self.jsonfeed_id,"upvotes":self.upvotes}
-		
+		return {"_id":self.id,
+			"toshow":self.toshow,
+			"feedtype":self.feedtype,
+			"text":self.text,
+			"source_text":self.source_text,
+			"source_url":self.source_url,
+			"media":self.media,
+			"mediatype":self.mediatype,
+			"created_at":self.created_at.isoformat(),
+			"hashtags":self.hashtags,
+			"upvotes":self.upvotes,
+			"jsonfeed_id":self.jsonfeed_id
+			}
+	
 	class Meta:
 		db_table = 'brain_feeds'
 		get_latest_by = 'created_at'
@@ -27,21 +41,36 @@ class BrainFeeds(models.Model):
 class JsonFeeds(models.Model):
 	feedtype = models.TextField() #originally feedtype -> type
 	text = models.TextField()
-	media = ListField()
-	mediamap = ListField()
-	keywords = ListField()
 	source_text = models.TextField()
 	source_url = models.TextField()
 	mediashow = ListField()
+	media = ListField()
+	mediatype = ListField()
+	mediamap = ListField()
+	keywords = ListField()
+	graphStructure = ListField()
+	
 	created_at = models.DateTimeField()
 	hashtags = models.TextField(default=datetime.now, blank=True)
 	meta = {'indexes':['hashtags']}
-	nodes = ListField()
-	factors = ListField()
 	upvotes = models.IntegerField(default=0)
 
 	def to_json(self):
-		return {"_id":self.id,"type":self.feedtype,"feedtype":self.feedtype,"text":self.text,"media":self.media,"mediamap":self.mediamap,"keywords":self.keywords,"source_text":self.source_text,"source_url":self.source_url,"mediashow":self.mediashow,"hashtags":self.hashtags,"created_at":self.created_at.isoformat(),"nodes":self.nodes,"factors":self.factors,"upvotes":self.upvotes}
+		return {"_id":self.id,
+			"feedtype":self.feedtype,
+			"text":self.text,
+			"source_text":self.source_text,
+			"source_url":self.source_url,
+			"mediashow":self.mediashow,
+			"media":self.media,
+			"mediatype":self.mediatype,
+			"mediamap":self.mediamap,
+			"keywords":self.keywords,
+			"graphStructure":self.graphStructure,
+			"created_at":self.created_at.isoformat(),
+			"hashtags":self.hashtags,
+			"upvotes":self.upvotes
+			}
 	
 	class Meta:
 		db_table = 'json_feeds'
@@ -49,7 +78,35 @@ class JsonFeeds(models.Model):
 def postSaveJson(**kwargs):
 	instance = kwargs.get('instance')
 	print instance.to_json()
-	#Extra stuff
+
+	#Saving JsonFeed to BrainFeed
+	brain_feed = BrainFeeds(
+		feedtype=instance.feedtype,
+		text=instance.text,
+		source_text=instance.source_text,
+		source_url=instance.source_url,
+		hashtags=instance.hashtags,
+		jsonfeed_id=instance.id
+	)
+
+	media = []
+	mediatype = []
+
+	for mediashow,_media,_mediatype in zip(instance.mediashow,instance.media,instance.mediatype):
+		if mediashow.lower() == 'true':
+			media.append(_media)
+			mediatype.append(_mediatype)
+	brain_feed.media = media
+	brain_feed.mediatype = mediatype
+	brain_feed.save()
+
+
+	#Saving viewer feed
+	viewer_feed = ViewerFeed(
+		feedid = brain_feed.id
+	)
+	viewer_feed.save()
+	#Saving JsonFeed to GraphDB
 
 post_save.connect(postSaveJson, JsonFeeds)
 

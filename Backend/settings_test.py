@@ -1,10 +1,13 @@
 # Django settings for Backend project.
+import os
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+     ('RoboBrain', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
@@ -21,9 +24,10 @@ DATABASES = {
     }
 }
 
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -35,7 +39,7 @@ TIME_ZONE = 'America/Chicago'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
-SITE_ID = 1
+SITE_ID=u'541b56c54249914c94ddf443'
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -121,6 +125,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'feed',
+    'rest_framework',
+    'rest_api',
+    'django_mongodb_engine'
+
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -156,4 +164,15 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
+SITE_ID=u'5412347d55caa50c580e16af'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
 }

@@ -21,8 +21,9 @@ class FeedSerializer(serializers.Serializer):
     upvotes = serializers.IntegerField(required=False)                     
     media = drf.ListField(serializers.CharField(),required=False)# serializers.CharField(required=False,many=True)
     mediamap = drf.ListField(serializers.CharField(),required=False)    
+    mediatype = drf.ListField(serializers.CharField(),required=False)
     keywords = drf.ListField(serializers.CharField(),required=False)
-    nodes = drf.ListField(serializers.CharField(),required=False)
+    graphStructure = drf.ListField(serializers.CharField(),required=False)
     mediashow = drf.ListField(serializers.CharField(),required=False)
 
 
