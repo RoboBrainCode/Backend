@@ -10,7 +10,9 @@ def prod_deploy(user='ubuntu'):
   env.host_string = 'ec2-54-218-14-187.us-west-2.compute.amazonaws.com'
   env.key_filename = 'conf/www.pem'
   env.user = user
+  env.shell = '/bin/zsh -l -c'
   with cd('/var/www/Backend'):
+    # sudo('su - ubuntu')
     print(green('Checking out test...'))
     run('git checkout test')
     print(green('Pulling latest version of test...'))
@@ -29,6 +31,7 @@ def test_deploy(user='ubuntu'):
   env.host_string = 'ec2-54-218-20-10.us-west-2.compute.amazonaws.com'
   env.key_filename = 'conf/www.pem'
   env.user = user
+  env.shell = '/bin/zsh -l -c'
   print(red('Deploying to test at test.robobrain.me...'))
   with cd('/var/www/Backend'):
     print(green('Checking out master...'))
