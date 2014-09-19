@@ -6,4 +6,3 @@ drf-compound-fields==0.2.2
 pymongo==2.7.2
 python-dateutil==2.2
 six==1.7.3
-uWSGI==2.0.7
