@@ -7,7 +7,6 @@ def prod_deploy(user='ubuntu'):
   print(red('Deploying to production at robobrain.me...'))
   if not confirm('Are you sure you want to deploy to production?'):
      print(red('Aborting deploy.'))
-  test_deploy(user)
   env.host_string = 'ec2-54-218-14-187.us-west-2.compute.amazonaws.com'
   env.key_filename = 'conf/www.pem'
   env.user = user
@@ -15,9 +14,11 @@ def prod_deploy(user='ubuntu'):
     print(green('Checking out test...'))
     run('git checkout test')
     print(green('Pulling latest version of test...'))
-    run('git pull')
+    sudo('git pull')
     print(green('Checking out production...'))
     run('git checkout production')
+    print(green('Pushing production upstream...'))
+    run('git push')
     print(green('Merging with test...'))
     run('git merge test')
     print(green('Reloading server...'))
