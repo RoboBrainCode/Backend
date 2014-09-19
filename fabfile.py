@@ -43,7 +43,7 @@ def test_deploy(user='ubuntu'):
     print(green('Pulling latest version of test...'))
     run('git pull')
     print(green('Merging with master...'))
-    run('git merge  --no-commit master')
+    run('git merge  --no-edit master')
     print(green('Push the latest version of master...'))
     run('git push')
     print(green('Reloading server...'))
