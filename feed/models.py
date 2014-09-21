@@ -17,6 +17,7 @@ class BrainFeeds(models.Model):
 	meta = {'indexes':['hashtags']}
 	upvotes = models.IntegerField(default=0)
 	jsonfeed_id = models.TextField()
+	username = models.TextField()
 	
 	def to_json(self):
 		return {"_id":self.id,
@@ -30,7 +31,8 @@ class BrainFeeds(models.Model):
 			"created_at":self.created_at.isoformat(),
 			"hashtags":self.hashtags,
 			"upvotes":self.upvotes,
-			"jsonfeed_id":self.jsonfeed_id
+			"jsonfeed_id":self.jsonfeed_id,
+			"username":self.username
 			}
 	
 	class Meta:
@@ -54,6 +56,7 @@ class JsonFeeds(models.Model):
 	hashtags = models.TextField(default=datetime.now, blank=True)
 	meta = {'indexes':['hashtags']}
 	upvotes = models.IntegerField(default=0)
+	username = models.TextField()
 
 	def to_json(self):
 		return {"_id":self.id,
@@ -69,7 +72,8 @@ class JsonFeeds(models.Model):
 			"graphStructure":self.graphStructure,
 			"created_at":self.created_at.isoformat(),
 			"hashtags":self.hashtags,
-			"upvotes":self.upvotes
+			"upvotes":self.upvotes,
+			"username":self.username
 			}
 	
 	class Meta:
@@ -86,7 +90,8 @@ def postSaveJson(**kwargs):
 		source_text=instance.source_text,
 		source_url=instance.source_url,
 		hashtags=instance.hashtags,
-		jsonfeed_id=instance.id
+		jsonfeed_id=instance.id,
+		username=instance.username
 	)
 
 	media = []
