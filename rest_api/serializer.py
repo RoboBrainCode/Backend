@@ -25,8 +25,7 @@ class FeedSerializer(serializers.Serializer):
     keywords = drf.ListField(serializers.CharField(),required=False)
     graphStructure = drf.ListField(serializers.CharField(),required=False)
     mediashow = drf.ListField(serializers.CharField(),required=False)
-
-
+    username = serializers.CharField(required=False)
 
     def restore_object(self, attrs, instance=None):
         """
