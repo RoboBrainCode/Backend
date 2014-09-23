@@ -52,7 +52,7 @@ def infinite_scrolling(request,extension):
 # Filters feeds using the hash word
 def filter_feeds_with_hashtags(request,extension):
 
-	hashword = request.GET.get('hashword','null')
+	hashword = request.GET.get('hashword','null').lower()
 	
 	brain_feeds = BrainFeeds.objects.filter(toshow=True).filter(hashtags__contains=hashword).order_by('-created_at')
 	return_data = []
