@@ -107,12 +107,14 @@ def postSaveJson(**kwargs):
 
 
 	#Saving viewer feed
+	"""
 	numitem = ViewerFeed.objects.all().count()
 	viewer_feed = ViewerFeed(
 		id = numitem,
 		feedid = brain_feed.id
 	)
 	viewer_feed.save()
+	"""
 	#Saving JsonFeed to GraphDB
 
 post_save.connect(postSaveJson, JsonFeeds)
