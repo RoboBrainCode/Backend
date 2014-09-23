@@ -1,8 +1,7 @@
 import pymongo as pm
 
-
 import sys
-sys.path.insert(0,'../Backend/')
+sys.path.insert(0,'/var/www/Backend/')
 import settings as setfile
 host = setfile.DATABASES['default']['HOST']
 dbname = setfile.DATABASES['default']['NAME']
