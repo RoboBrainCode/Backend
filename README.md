@@ -25,3 +25,7 @@ This will also install Django for you, further any Django project created will u
 http://2buntu.com/articles/1451/installing-django-and-mongodb-in-your-virtualenv/
 
 PS: There is no needs to setup virtualenv.
+
+### Update viewer feeds
+
+The script inside directory UpdateViewerFeeds runs as a cron job and balances the frontend feeds. Giving equal importance to all the projects. The script import the settings file mentioned in manage.py. So if you change the settings filename in manage.py, then accordingly modify the updateViewerFeed.py file. 
