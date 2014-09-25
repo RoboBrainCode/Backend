@@ -16,7 +16,7 @@ different_projects = brain_feeds.distinct('source_url')
 different_projects = sorted(different_projects,key=len) 
 feeds_each_project = {}
 for url in different_projects:
-	 feeds_each_project[url] = brain_feeds.find({'source_url':url}).sort('created_at',pm.DESCENDING)
+	 feeds_each_project[url] = brain_feeds.find({'source_url':url},{'created_at':1}).sort('created_at',pm.DESCENDING)
 feeds_to_push = []
 overall_counter = 0
 level = 0
