@@ -38,16 +38,16 @@ while True:
 			overall_counter += 1
 			remaining_projects.append(url)
 			toBreak = False
+			if overall_counter % 100 == 0:
+				if first_time:
+					viewer_feeds.drop()
+					first_time = False
+				viewer_feeds.insert(feeds_to_push)
+				feeds_to_push = []
 	different_projects = remaining_projects
 
 	if toBreak:
 		break
 
-	if overall_counter % 100 == 0:
-		if first_time:
-			viewer_feeds.drop()
-			first_time = False
-		viewer_feeds.insert(feeds_to_push)
-		feeds_to_push = []
 
 	level += 1
