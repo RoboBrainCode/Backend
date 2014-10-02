@@ -1,2 +1,5 @@
 *.pyc
 *.pyo
+graph_modification/*
+graph_query_api/*
+learning_plugins/*
