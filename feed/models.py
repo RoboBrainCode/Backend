@@ -20,7 +20,6 @@ class BrainFeeds(models.Model):
 	jsonfeed_id = models.TextField()
 	username = models.TextField()
 
->>>>>>> e4c5a494d5934572b23c3bf688230282fbd927ad
 	def to_json(self):
 		return {"_id":self.id,
 			"toshow":self.toshow,
