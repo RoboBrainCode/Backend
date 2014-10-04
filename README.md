@@ -1,6 +1,15 @@
 Backend
 ==============
 
+### Setting up submodules
+Once you pull or clone the Backend repo, you need to do:
+`cd Backend/`
+`git submodule init`
+`git submodule update`
+
+Any time a change to any of the submodules is pushed to the Backend repo, you
+need to do `git submodule update`.
+
 ### Setup Django with MongoDB
 * Follow the URL
 
