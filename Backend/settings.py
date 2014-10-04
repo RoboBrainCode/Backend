@@ -15,7 +15,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django_mongodb_engine', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'backend_br',                      # Or path to database file if using sqlite3.
+        'NAME': 'backend_test_deploy',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -23,6 +23,9 @@ DATABASES = {
         'PORT': '27017',                      # Set to empty string for default.
     }
 }
+
+SITE_ID=u'541cb221424991564503c0fc'
+
 
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -39,7 +42,7 @@ TIME_ZONE = 'America/Chicago'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
-SITE_ID=u'541b56c54249914c94ddf443'
+
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -171,7 +174,6 @@ LOGGING = {
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
-SITE_ID=u'5412347d55caa50c580e16af'
 
 
 REST_FRAMEWORK = {

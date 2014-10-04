@@ -18,7 +18,12 @@ class BrainFeeds(models.Model):
 	upvotes = models.IntegerField(default=0)
 	downvotes = models.IntegerField(default=0)
 	jsonfeed_id = models.TextField()
+<<<<<<< HEAD
 
+=======
+	username = models.TextField()
+
+>>>>>>> e4c5a494d5934572b23c3bf688230282fbd927ad
 	def to_json(self):
 		return {"_id":self.id,
 			"toshow":self.toshow,
@@ -31,8 +36,13 @@ class BrainFeeds(models.Model):
 			"created_at":self.created_at.isoformat(),
 			"hashtags":self.hashtags,
 			"upvotes":self.upvotes,
+<<<<<<< HEAD
 			"downvotes":self.downvotes,
 			"jsonfeed_id":self.jsonfeed_id
+=======
+			"jsonfeed_id":self.jsonfeed_id,
+			"username":self.username
+>>>>>>> e4c5a494d5934572b23c3bf688230282fbd927ad
 			}
 
 	class Meta:
@@ -57,6 +67,7 @@ class JsonFeeds(models.Model):
 	meta = {'indexes':['hashtags']}
 	upvotes = models.IntegerField(default=0)
 	downvotes = models.IntegerField(default=0)
+	username = models.TextField()
 
 	def to_json(self):
 		return {"_id":self.id,
@@ -74,6 +85,7 @@ class JsonFeeds(models.Model):
 			"hashtags":self.hashtags,
 			"upvotes":self.upvotes,
 			"downvotes":self.downvotes
+			"username":self.username
 			}
 
 	class Meta:
@@ -90,7 +102,8 @@ def postSaveJson(**kwargs):
 		source_text=instance.source_text,
 		source_url=instance.source_url,
 		hashtags=instance.hashtags,
-		jsonfeed_id=instance.id
+		jsonfeed_id=instance.id,
+		username=instance.username
 	)
 
 	media = []
@@ -106,10 +119,14 @@ def postSaveJson(**kwargs):
 
 
 	#Saving viewer feed
+	"""
+	numitem = ViewerFeed.objects.all().count()
 	viewer_feed = ViewerFeed(
+		id = numitem,
 		feedid = brain_feed.id
 	)
 	viewer_feed.save()
+	"""
 	#Saving JsonFeed to GraphDB
 
 post_save.connect(postSaveJson, JsonFeeds)
