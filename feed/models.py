@@ -76,7 +76,7 @@ class JsonFeeds(models.Model):
 			"created_at":self.created_at.isoformat(),
 			"hashtags":self.hashtags,
 			"upvotes":self.upvotes,
-			"downvotes":self.downvotes
+			"downvotes":self.downvotes,
 			"username":self.username
 			}
 
