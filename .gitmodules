@@ -1,3 +1,9 @@
 [submodule "graph_modification"]
 	path = graph_modification
 	url = git@github.com:RoboBrainCode/graph_modification.git
+[submodule "learning_plugins"]
+	path = learning_plugins
+	url = git@github.com:RoboBrainCode/learning_plugins.git
+[submodule "graph_query_api"]
+	path = graph_query_api
+	url = git@github.com:RoboBrainCode/graph_query_api.git
