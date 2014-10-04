@@ -3,9 +3,13 @@ Backend
 
 ### Setting up submodules
 Once you pull or clone the Backend repo, you need to do:
+
 1. `cd Backend/`
+
 2. `git submodule init`
+
 3. `git submodule update`
+
 
 Any time a change to any of the submodules is pushed to the Backend repo, you
 need to do `git submodule update`.
