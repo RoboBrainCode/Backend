@@ -1,5 +1,7 @@
 from settings import *
 
+DEBUG = False
+
 DATABASES = {
     'default': {
         'ENGINE': 'django_mongodb_engine', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
