@@ -17,9 +17,10 @@ class BrainFeeds(models.Model):
 	hashtags = models.TextField(db_index=True)
 	meta = {'indexes':['hashtags']}
 	upvotes = models.IntegerField(default=0)
+	downvotes = models.IntegerField(default=0)
 	jsonfeed_id = models.TextField()
 	username = models.TextField()
-	
+
 	def to_json(self):
 		return {"_id":self.id,
 			"toshow":self.toshow,
@@ -32,10 +33,11 @@ class BrainFeeds(models.Model):
 			"created_at":self.created_at.isoformat(),
 			"hashtags":self.hashtags,
 			"upvotes":self.upvotes,
+			"downvotes":self.downvotes,
 			"jsonfeed_id":self.jsonfeed_id,
 			"username":self.username
 			}
-	
+
 	class Meta:
 		db_table = 'brain_feeds'
 		get_latest_by = 'created_at'
@@ -52,11 +54,12 @@ class JsonFeeds(models.Model):
 	mediamap = ListField()
 	keywords = ListField()
 	graphStructure = ListField()
-	
+
 	created_at = models.DateTimeField()
 	hashtags = models.TextField(default=datetime.now, blank=True)
 	meta = {'indexes':['hashtags']}
 	upvotes = models.IntegerField(default=0)
+	downvotes = models.IntegerField(default=0)
 	username = models.TextField()
 
 	def to_json(self):
@@ -74,9 +77,10 @@ class JsonFeeds(models.Model):
 			"created_at":self.created_at.isoformat(),
 			"hashtags":self.hashtags,
 			"upvotes":self.upvotes,
+			"downvotes":self.downvotes,
 			"username":self.username
 			}
-	
+
 	class Meta:
 		db_table = 'json_feeds'
 
