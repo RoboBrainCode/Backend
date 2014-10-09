@@ -14,6 +14,12 @@ def return_top_k_feeds(request):
 	upper_limit = min(max_len, top_k)
 	feed_ids = ViewerFeed.objects.values_list('feedid', flat=True).order_by('id')[:upper_limit]
 	brainfeeds = BrainFeeds.objects.filter(id__in=list(feed_ids))
+
+    for feeds in brainfeeds:
+        feeds.update_score = True
+        feeds.log_normalized_feed_show += 1.0
+        feeds.save()
+
 	json_feeds = [feed.to_json() for feed in brainfeeds]
 
 	return HttpResponse(json.dumps(json_feeds), content_type="application/json")
@@ -31,6 +37,13 @@ def infinite_scrolling(request):
 	upper_limit = min(max_len, current_feeds + extra_feeds)
 	feed_ids = ViewerFeed.objects.values_list('feedid', flat=True).order_by('id')[current_feeds:upper_limit]
 	brainfeeds = BrainFeeds.objects.filter(id__in=list(feed_ids))
+
+    page_number = current_feeds/max(1.0,extra_feeds) + 1.0
+    for feeds in brainfeeds:
+        feeds.update_score = True
+        feeds.log_normalized_feed_show += np.log10(page_number)
+        feeds.save()
+
 	json_feeds = [feed.to_json() for feed in brainfeeds]
 
 	return HttpResponse(json.dumps(json_feeds), content_type="application/json")
