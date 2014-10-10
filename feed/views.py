@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from feed.models import BrainFeeds, ViewerFeed
 import json
+import numpy as np
 from django.core import serializers
 import dateutil.parser
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -41,7 +42,7 @@ def infinite_scrolling(request):
     page_number = current_feeds/max(1.0,extra_feeds) + 1.0
     for feeds in brainfeeds:
         feeds.update_score = True
-        feeds.log_normalized_feed_show += np.log10(page_number)
+        feeds.log_normalized_feed_show += np.log10(1.0+page_number)
         feeds.save()
 
     json_feeds = [feed.to_json() for feed in brainfeeds]

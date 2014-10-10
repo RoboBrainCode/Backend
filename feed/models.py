@@ -2,7 +2,7 @@ from django.db import models
 from djangotoolbox.fields import ListField
 from datetime import datetime
 from django.db.models.signals import post_save
-from graph_modification.views import add_feed_to_graph
+#from graph_modification.views import add_feed_to_graph
 #from feed.models import BrainFeeds
 
 class BrainFeeds(models.Model):
@@ -11,18 +11,20 @@ class BrainFeeds(models.Model):
     text = models.TextField()
     source_text = models.TextField()
     source_url = models.TextField(db_index=True)
-    #meta = {'indexes':['source_url']}
+    meta = {'indexes':['source_url']}
     media = ListField()
     mediatype = ListField()
     created_at = models.DateTimeField(default=datetime.now())
     hashtags = models.TextField(db_index=True)
-    #meta = {'indexes':['hashtags']}
+    meta = {'indexes':['hashtags']}
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
     jsonfeed_id = models.TextField()
     username = models.TextField()
     score = models.FloatField(default=0.0,db_index=True)
+    meta = {'indexes':['score']}
     update_score = models.BooleanField(default=True,db_index=True)
+    meta = {'indexes':['update_score']}
     log_normalized_feed_show = models.FloatField(default=1.0)
 
 
@@ -41,18 +43,12 @@ class BrainFeeds(models.Model):
             "downvotes":self.downvotes,
             "jsonfeed_id":self.jsonfeed_id,
             "username":self.username,
-            "score":score,
-            "log_normalized_feed_show":log_normalized_feed_show,
-            "update_score":update_score
+            "score":self.score,
+            "log_normalized_feed_show":self.log_normalized_feed_show,
+            "update_score":self.update_score
             }
 
     class Meta:
-        indexes = [
-            [('hashtags',1)],
-            [('source_url',1)],
-            [('score',1)],
-            [('update_score',1)],
-        ]
         db_table = 'brain_feeds'
         get_latest_by = 'created_at'
 
@@ -101,7 +97,7 @@ class JsonFeeds(models.Model):
 def postSaveJson(**kwargs):
     instance = kwargs.get('instance')
     print "Post Saving JsonFeed: ", instance.to_json()
-    add_feed_to_graph(instance.to_json())
+    #add_feed_to_graph(instance.to_json())
 
     #Saving JsonFeed to BrainFeed
     brain_feed = BrainFeeds(
