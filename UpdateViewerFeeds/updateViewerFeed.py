@@ -1,19 +1,34 @@
+import ConfigParser
 import pymongo as pm
-
+from datetime import datetime 
+import numpy as np
+import importlib
 import sys
-sys.path.insert(0,'../Backend/')
-import settings as setfile
-host = setfile.DATABASES['default']['HOST']
-dbname = setfile.DATABASES['default']['NAME']
-port = int(setfile.DATABASES['default']['PORT'])
+sys.path.insert(0,'/var/www/Backend/Backend/')
 
+def readConfigFile():
+    """
+        Reading the setting file to use.
+        Different setting files are used on Production and Test robo brain
+    """
 
+    global setfile
+    config = ConfigParser.ConfigParser()
+    config.read('/tmp/backend_uwsgi_setting')
+    env = config.get('uwsgi','env')
+    setting_file_name = env.strip().split('.')[1]
+    setfile = importlib.import_module(setting_file_name)	
 
-client = pm.MongoClient(host,port)
-db = client[dbname]
-brain_feeds = db['brain_feeds']
-viewer_feeds = db['viewer_feeds']
-
+def establishConnection():
+    """
+        Establishes connection to remote db
+    """
+    
+    global brain_feeds, viewer_feeds
+    client = pm.MongoClient(host,port)
+    db = client[dbname]
+    brain_feeds = db['brain_feeds']
+    viewer_feeds = db['viewer_feeds']
 
 def viewerFeedsUpdate():
     """
@@ -31,13 +46,14 @@ def viewerFeedsUpdate():
         new_feed['feedid'] = feeds['_id'].__str__()
         feeds_to_push.append(new_feed)
         overall_counter += 1
-        print overall_counter
+        print "{0}  {1} {2}".format(overall_counter,feeds['score'],feeds['source_url'])
         if overall_counter % 100 == 0:
             if first_time:
                 viewer_feeds.drop()
                 first_time = False
             viewer_feeds.insert(feeds_to_push)
             feeds_to_push = []
+            raw_input('pressenter')
 
 def viewerFeedsUpdate_deprecated():
     """
@@ -84,4 +100,15 @@ def viewerFeedsUpdate_deprecated():
         level += 1
 
 if __name__=="__main__":
+    global host, dbname, port, setfile, brain_feeds, viewer_feeds
+
+    # Reading the setting file for db address
+    readConfigFile()
+    host = setfile.DATABASES['default']['HOST']
+    dbname = setfile.DATABASES['default']['NAME']
+    port = int(setfile.DATABASES['default']['PORT'])
+    
+    # Extablishing connection to remote db 
+    establishConnection()
+    
     viewerFeedsUpdate()
