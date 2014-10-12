@@ -53,7 +53,6 @@ def viewerFeedsUpdate():
                 first_time = False
             viewer_feeds.insert(feeds_to_push)
             feeds_to_push = []
-            raw_input('pressenter')
 
 def viewerFeedsUpdate_deprecated():
     """
