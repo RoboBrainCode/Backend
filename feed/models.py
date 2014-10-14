@@ -97,7 +97,7 @@ class JsonFeeds(models.Model):
 def postSaveJson(**kwargs):
     instance = kwargs.get('instance')
     print "Post Saving JsonFeed: ", instance.to_json()
-    #add_feed_to_graph(instance.to_json())
+    add_feed_to_graph(instance.to_json())
 
     #Saving JsonFeed to BrainFeed
     brain_feed = BrainFeeds(
