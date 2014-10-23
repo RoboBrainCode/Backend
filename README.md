@@ -1,6 +1,8 @@
 Backend
 ==============
 
+Remember to do `sudo pip install -r requirements.txt` to install all the dependencies.
+
 ### Setting up submodules
 Once you pull or clone the Backend repo, you need to do:
 
