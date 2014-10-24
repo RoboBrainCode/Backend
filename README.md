@@ -1,6 +1,8 @@
 Backend
 ==============
 
+Remember to do `sudo pip install -r requirements.txt` to install all the dependencies.
+
 ### Graph Structure
 1. Nodes have either the label :Concept or :Media. If they have :Media, they will also have a :Image, :Video or :Text label depending on what media type they represent.
 2. Edges store the source_url, source_text and keywords (an array of strings) properties. Each edge is labeled by its edge type. For example, an edge representing the spatially_distributed_as relationship will have the :SPATIALLY_DISTRIBUTED_AS label.
