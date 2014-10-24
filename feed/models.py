@@ -2,7 +2,7 @@ from django.db import models
 from djangotoolbox.fields import ListField
 from datetime import datetime
 from django.db.models.signals import post_save
-from graph_modification.views import add_feed_to_graph
+# from graph_modification.views import add_feed_to_graph
 #from feed.models import BrainFeeds
 
 class BrainFeeds(models.Model):
