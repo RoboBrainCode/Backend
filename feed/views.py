@@ -26,6 +26,15 @@ def return_top_k_feeds(request):
     for bf in list(brainfeeds_db):
         brainfeeds[feed_map_order[bf.id]] = bf
 
+    # Deleting entries from brainfeeds where brainfeeds == 0
+    delete_entries = []
+    for bf in brainfeeds:
+        if bf == 0:
+            delete_entries.append(0)
+
+    for bf in delete_entries:
+        brainfeeds.remove(bf)
+
     update_scores_top_k(brainfeeds)
     json_feeds = [feed.to_json() for feed in brainfeeds]
 
@@ -54,6 +63,15 @@ def infinite_scrolling(request):
     brainfeeds = [0]  * len(feed_ids)
     for bf in list(brainfeeds_db):
         brainfeeds[feed_map_order[bf.id]] = bf
+
+    # Deleting entries from brainfeeds where brainfeeds == 0
+    delete_entries = []
+    for bf in brainfeeds:
+        if bf == 0:
+            delete_entries.append(0)
+
+    for bf in delete_entries:
+        brainfeeds.remove(bf)
 
     update_scores_scroll(brainfeeds, current_feeds, extra_feeds)
     json_feeds = [feed.to_json() for feed in brainfeeds]
