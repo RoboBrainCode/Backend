@@ -9,7 +9,7 @@ class GraphFeedback(models.Model):
     id_node = models.IntegerField()
     feedback_type = models.TextField()
     node_handle = models.TextField()
-    action_type = model.TextField()
+    action_type = models.TextField()
 
     def to_json(self):
         return {"_id":self.id,
