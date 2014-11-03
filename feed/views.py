@@ -1,11 +1,29 @@
 from django.http import HttpResponse
-from feed.models import BrainFeeds, ViewerFeed
+from feed.models import BrainFeeds, ViewerFeed, GraphFeedback
 import json
 import numpy as np
 from django.core import serializers
 import dateutil.parser
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.db.transaction import commit_on_success
+
+# This is a temporary function. It will be later moved to learning_plugins
+def save_graph_feedback(request):
+
+    _id_node = int(request.GET.get('id','-1')) # default k=10
+    _feedback_type = request.GET.get('feedback_type','')
+    _node_handle = request.GET.get('node_handle','')
+    _action_type = request.GET.get('action_type','')
+    graph_feedback = GraphFeedback(
+        id_node = _id_node,
+        feedback_type = _feedback_type,
+        node_handle = _node_handle,
+        action_type = _action_type
+    )
+    graph_feedback.save()
+
+    return HttpResponse(json.dumps(graph_feedback.to_json()), content_type="application/json")
+                       
 
 # Returns k most recent feeds from BrainFeed table.
 def return_top_k_feeds(request):
