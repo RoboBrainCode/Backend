@@ -20,7 +20,7 @@ class GraphFeedback(models.Model):
         }
 
     class Meta:
-        db_name = "graph_feedback"
+        db_table = "graph_feedback"
         
 class BrainFeeds(models.Model):
     toshow = models.BooleanField(default=True)
