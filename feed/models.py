@@ -6,7 +6,7 @@ from graph_modification.views import add_feed_to_graph
 #from feed.models import BrainFeeds
 
 class GraphFeedback(models.Model):
-    id_node = models.IntegerField()
+    id_node = models.TextField()
     feedback_type = models.TextField()
     node_handle = models.TextField()
     action_type = models.TextField()

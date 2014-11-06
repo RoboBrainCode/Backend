@@ -10,7 +10,7 @@ from django.db.transaction import commit_on_success
 # This is a temporary function. It will be later moved to learning_plugins
 def save_graph_feedback(request):
 
-    _id_node = int(request.GET.get('id','-1')) # default k=10
+    _id_node = (request.GET.get('id','-1')) # default k=10
     _feedback_type = request.GET.get('feedback_type','')
     _node_handle = request.GET.get('node_handle','')
     _action_type = request.GET.get('action_type','')
