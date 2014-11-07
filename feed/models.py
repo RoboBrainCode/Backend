@@ -5,6 +5,23 @@ from django.db.models.signals import post_save
 from graph_modification.views import add_feed_to_graph
 #from feed.models import BrainFeeds
 
+class GraphFeedback(models.Model):
+    id_node = models.TextField()
+    feedback_type = models.TextField()
+    node_handle = models.TextField()
+    action_type = models.TextField()
+
+    def to_json(self):
+        return {"_id":self.id,
+            "id_node":self.id_node,
+            "feedback_type":self.feedback_type,
+            "node_handle":self.node_handle,
+            "action_type":self.action_type
+        }
+
+    class Meta:
+        db_table = "graph_feedback"
+        
 class BrainFeeds(models.Model):
     toshow = models.BooleanField(default=True)
     feedtype = models.TextField() #originally feedtype -> type
