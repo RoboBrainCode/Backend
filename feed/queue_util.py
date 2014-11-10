@@ -6,8 +6,8 @@ from boto.sqs.message import RawMessage
 
 conn = boto.sqs.connect_to_region(
     "us-west-2", 
-    aws_access_key_id='<aws access key>', 
-    aws_secret_access_key='<aws secret key>')
+    aws_access_key_id='AKIAIDKZIEN24AUR7CJA', 
+    aws_secret_access_key='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')
 
 feed_queue = conn.create_queue('feed_queue')
 
