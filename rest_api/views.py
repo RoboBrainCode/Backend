@@ -12,7 +12,7 @@ from rest_framework import permissions
 def feed_list(request):
     #List all snippets, or create a new snippet.
     if request.method == 'GET':
-        feeds = JsonFeeds.objects.all()
+        feeds = JsonFeeds.objects.all()[:25]
         serializer = FeedSerializer(feeds, many=True)
         return Response(serializer.data)
 

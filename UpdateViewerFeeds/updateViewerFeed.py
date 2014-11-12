@@ -41,18 +41,21 @@ def viewerFeedsUpdate():
     first_time = True
 
     for feeds in feeds_ordered:
-        new_feed = {}
-        new_feed['_id'] = overall_counter
-        new_feed['feedid'] = feeds['_id'].__str__()
-        feeds_to_push.append(new_feed)
-        overall_counter += 1
-        print "{0}  {1} {2}".format(overall_counter,feeds['score'],feeds['source_url'])
-        if overall_counter % 100 == 0:
-            if first_time:
-                viewer_feeds.drop()
-                first_time = False
-            viewer_feeds.insert(feeds_to_push)
-            feeds_to_push = []
+        try:
+            new_feed = {}
+            new_feed['_id'] = overall_counter
+            new_feed['feedid'] = feeds['_id'].__str__()
+            feeds_to_push.append(new_feed)
+            overall_counter += 1
+            print "{0}  {1} {2}".format(overall_counter,feeds['score'],feeds['source_url'])
+            if overall_counter % 100 == 0:
+                if first_time:
+                    viewer_feeds.drop()
+                    first_time = False
+                viewer_feeds.insert(feeds_to_push)
+                feeds_to_push = []
+        except:
+            print "**************skipping*************"
 
 def viewerFeedsUpdate_deprecated():
     """
