@@ -2,7 +2,6 @@ from django.db import models
 from djangotoolbox.fields import ListField
 from datetime import datetime
 from django.db.models.signals import post_save
-from graph_modification.views import add_feed_to_graph
 #from feed.models import BrainFeeds
 
 class GraphFeedback(models.Model):
@@ -21,7 +20,7 @@ class GraphFeedback(models.Model):
 
     class Meta:
         db_table = "graph_feedback"
-        
+
 class BrainFeeds(models.Model):
     toshow = models.BooleanField(default=True)
     feedtype = models.TextField() #originally feedtype -> type
