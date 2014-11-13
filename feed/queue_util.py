@@ -2,7 +2,9 @@
 
 import boto
 import json
+import traceback
 from boto.sqs.message import RawMessage
+from bson import json_util
 
 conn = boto.sqs.connect_to_region(
     "us-west-2", 
@@ -13,8 +15,12 @@ feed_queue = conn.create_queue('feed_queue')
 
 def add_feed_to_graph(json_feed):
     m = RawMessage()
-    m.set_body(json.dumps(json_feed))
-    status = feed_queue.write(m)
+    try:
+        m.set_body(json.dumps(json_feed, default=json_util.default))
+        feed_queue.write(m)
+    except Exception, e:
+        print traceback.format_exc()
+        print json_feed
 
 if __name__ == '__main__':
     add_feed_to_graph({'a': 1})
