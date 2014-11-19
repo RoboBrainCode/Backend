@@ -13,7 +13,7 @@ conn = boto.sqs.connect_to_region(
 
 feed_queue = conn.create_queue('feed_queue')
 
-def add_feed_to_graph(json_feed):
+def add_feed_to_queue(json_feed):
     m = RawMessage()
     try:
         m.set_body(json.dumps(json_feed, default=json_util.default))
@@ -23,4 +23,4 @@ def add_feed_to_graph(json_feed):
         print json_feed
 
 if __name__ == '__main__':
-    add_feed_to_graph({'a': 1})
+    add_feed_to_queue({'a': 1})
