@@ -28,7 +28,7 @@ def prod_deploy(user='ubuntu'):
   print(red('Done!'))
 
 def test_deploy(user='ubuntu'):
-  env.host_string = 'ec2-54-218-20-10.us-west-2.compute.amazonaws.com'
+  env.host_string = 'ec2-54-148-225-192.us-west-2.compute.amazonaws.com'
   env.key_filename = 'conf/www.pem'
   env.user = user
   env.shell = '/bin/zsh -l -c'
