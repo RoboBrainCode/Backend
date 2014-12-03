@@ -114,3 +114,4 @@ if __name__=="__main__":
     establishConnection()
     
     viewerFeedsUpdate()
+    #viewerFeedsUpdate_deprecated()
