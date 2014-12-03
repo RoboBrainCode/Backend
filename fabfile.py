@@ -7,7 +7,7 @@ def prod_deploy(user='ubuntu'):
   print(red('Deploying to production at robobrain.me...'))
   if not confirm('Are you sure you want to deploy to production?'):
      print(red('Aborting deploy.'))
-  env.host_string = 'ec2-54-68-27-137.us-west-2.compute.amazonaws.com'
+  env.host_string = '54.149.21.165'
   env.key_filename = 'conf/www.pem'
   env.user = user
   env.shell = '/bin/zsh -l -c'
