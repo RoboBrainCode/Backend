@@ -4,6 +4,7 @@ from datetime import datetime
 import numpy as np
 import importlib
 import sys
+import random
 sys.path.insert(0,'/var/www/Backend/Backend/')
 
 def readConfigFile():
@@ -63,6 +64,12 @@ def viewerFeedsUpdate_deprecated():
         Equally represent each project
     """
     different_projects = brain_feeds.distinct('source_url')
+    print different_projects
+    different_projects.remove(None)
+    different_projects.remove('')
+    different_projects.remove('http://image-net.org')
+    different_projects.remove('http://wordnet.princeton.edu/')
+    print different_projects
     different_projects = sorted(different_projects,key=len) 
     feeds_each_project = {}
     feeds_count = {}
@@ -112,5 +119,8 @@ if __name__=="__main__":
     
     # Extablishing connection to remote db 
     establishConnection()
-    
-    viewerFeedsUpdate()
+    coin_toss = random.random()
+    if coin_toss < 0.6:
+        viewerFeedsUpdate_deprecated()
+    else:
+        viewerFeedsUpdate()
