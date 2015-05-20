@@ -114,7 +114,8 @@ class JsonFeeds(models.Model):
 def postSaveJson(**kwargs):
     instance = kwargs.get('instance')
     print "Post Saving JsonFeed: ", instance.to_json()
-    add_feed_to_queue(instance.to_json())
+    
+    toBeAddedToQueue=instance.to_json()
 
     #Saving JsonFeed to BrainFeed
     brain_feed = BrainFeeds(
@@ -126,10 +127,8 @@ def postSaveJson(**kwargs):
         jsonfeed_id=instance.id,
         username=instance.username
     )
-
     media = []
     mediatype = []
-
     for mediashow,_media,_mediatype in zip(instance.mediashow,instance.media,instance.mediatype):
         if mediashow.lower() == 'true':
             media.append(_media)
@@ -137,7 +136,9 @@ def postSaveJson(**kwargs):
     brain_feed.media = media
     brain_feed.mediatype = mediatype
     brain_feed.save()
-
+    retObj=BrainFeeds.objects.latest('id')
+    toBeAddedToQueue['_id']=retObj.id
+    add_feed_to_queue(toBeAddedToQueue)
 
     #Saving viewer feed
     """
