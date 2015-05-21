@@ -18,7 +18,10 @@ def getNode(request):
 	# with open('/home/siddhantmanocha/intern/code/Intern/roboBrain/Backend/graph/arctic.json') as f:
 	# 	for line in f:
 	# 		lines=lines+line.strip()
+	
 	result=json.dumps(getNodeEdge(name=val,num=number,overwrite=overwrite,directionVal=direction))
+	# import os.path
+	# os.path.abspath(os.path.join('../', os.pardir))+'Frontend/app/sample_data/arctic.json'
 	with open('/home/siddhantmanocha/intern/roboBrainProduction/Frontend/app/sample_data/arctic.json','w') as f:
 		f.write(result)
 
