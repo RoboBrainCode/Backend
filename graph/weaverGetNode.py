@@ -1,7 +1,7 @@
 import hashlib
 from weaver import client
 import json
-c = client.Client('128.84.167.248', 2002) # Syslab
+c = client.Client('172.31.33.213', 2002) # Syslab
 # c = client.Client('128.84.167.248', 2002) # Arpit's
 # c = client.Client('127.0.0.1', 2002) # Syslab
 def _get_unique_id(node_handle):
@@ -12,7 +12,10 @@ def getNodeEdge(name='phone',num=5,overwrite=1,directionVal='F'):
     retVal=dict()
     if not overwrite:
         lines=""
-        with open('/home/siddhantmanocha/intern/roboBrainProduction/Frontend/app/sample_data/arctic.json','r') as f:
+	import os.path
+	Filename=os.path.abspath(os.path.join('../', os.pardir))+'Frontend/app/sample_data/arctic.json'
+	print Filename        
+	with open(Filename,'r') as f:
             for line in f:
                 lines=lines+line
         retVal=dict(json.loads(lines))
