@@ -6,7 +6,7 @@ def _get_unique_id(node_handle):
 
 import weaver.client as client
 
-graphClient = client.Client('128.84.167.248', 2002)
+graphClient = client.Client('172.31.33.213', 2002)
 print 'created client: forward'
 
 def returnPathMinMax(src='standing_human',dest='volume',path_len_min=0,path_len_max=5,nodeListDisplay=False,path_len_exact=False,displayPath=False):

@@ -1,7 +1,5 @@
 import sys
 sys.dont_write_bytecode = True
-
-from py2neo import Graph
 from parser import cyParser
 from runQuery import runQuery
 
