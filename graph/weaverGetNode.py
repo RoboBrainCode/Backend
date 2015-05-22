@@ -13,8 +13,8 @@ def getNodeEdge(name='phone',num=5,overwrite=1,directionVal='F'):
     if not overwrite:
         lines=""
 	import os.path
-	Filename=os.path.abspath(os.path.join('../', os.pardir))+'Frontend/app/sample_data/arctic.json'
-	print Filename        
+	Filename=os.path.abspath(os.path.join('./', os.pardir))+'/Frontend/app/sample_data/arctic.json'
+#	print Filename        
 	with open(Filename,'r') as f:
             for line in f:
                 lines=lines+line
@@ -25,7 +25,7 @@ def getNodeEdge(name='phone',num=5,overwrite=1,directionVal='F'):
 
     nodename=name
     onehop=c.traverse(nodename).out_edge({'edgeDirection':directionVal}).node().execute()
-    print onehop
+#    print onehop
     nodeList=list()
     for nodeDict in retVal['nodes']:
         print '1:',nodeDict['caption']
