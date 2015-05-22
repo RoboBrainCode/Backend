@@ -81,6 +81,7 @@ def CollectNodes(graphDir,src='standing_human',path_len_max=5,properties={}):
 	start=src
 	hopLengthNodes[hopPoint-1].append(start)
 	retValFinal=dict()
+	edge_props=dict()
 	if not path_len_max==1:
 		retValFinal=CollectNodesRecursive(graphDir,visited,hopLengthNodes,hopPoint,path_len_max)
 	else:
