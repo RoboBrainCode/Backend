@@ -1,7 +1,5 @@
 import sys
 sys.dont_write_bytecode = True
-
-#from py2neo import Graph
 from parser import cyParser
 from runQuery import runQuery
 
@@ -14,10 +12,8 @@ def Belief(p):
 		if 'belief' in rel:
 			belief = rel['belief']
 			pathBelief = min(pathBelief, belief)
-		else:
-			print 'no belief property exists' 
+		else: 
 			return 'no belief property exists'
-	print 'belief of the edge/path: ' + pathBelief
 	return pathBelief
 
 
@@ -28,13 +24,11 @@ def parents(n):
 		return fetch("(v)-[:HAS_PARAMETERS]->({handle:" + handle(n) + "})")
 
 
-# def appearance(n):
-# 	'''returns appearance of object n'''
-# 	if type(n).__name__ == 'str':
-# 		# print 'handle '+n 
-# 		return fetch("({handle:'" + n + "'})-[:`SAME_SYNSET`]->(v)")
-
-# appearance = lambda v: fetch("({handle:'" + n + "'})-[:`SAME_SYNSET`]->(v)")
+def appearance(n):
+	'''returns appearance of object n'''
+	if type(n).__name__ == 'str':
+		# print 'handle '+n 
+		return fetch("({handle:'" + n + "'})-[:`SAME_SYNSET`]->(v)")
 
 def affordance(n):
 	'''returns affordances of object n'''
@@ -48,10 +42,8 @@ def SortBy(property,p):
 		if 'belief' in p[0][0]:
 			nw_results = sorted(p, key=lambda k: Belief(k))
 		else:
-			print 'no belief property exists'	
 			return 'no belief property exists'	
 	else: 
-		print 'currently not supported'
 		return 'currently not supported'
 	return new_results
 
@@ -62,7 +54,6 @@ def trajectory(n):
 
 def handle(n):
 	if type(n).__name__ == 'Node':
-		print n.properties['handle']
 		return n.properties['handle']
 
 
@@ -91,12 +82,11 @@ def fetch(pattern):
 	result=runQuery(cypherQuery)
 	# print result
 	if result:
-		print result
 		return result
 	else:
 		return {'test':'Failed'}
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
 	# fetch("({handle:'wall'})-[:`HAS_MATERIAL`]->(b)")
 	# fetch("({handle:'phone'})-[]->(e)")
 	# fetch("({handle:'wall'})-[:`HAS_MATERIAL`]->(e)")
@@ -108,3 +98,4 @@ def fetch(pattern):
 	# fetch("({handle:'standing_human'})-[e*1]->({handle:'volume'})")
 	# fetch("({handle:'standing_human'})-[*1..1]->(e)")
 	# fetch("(v)-[*5]->({handle:'wall'})")
+	print fetch("({handle:'wall'})-[:`HAS_MATERIAL`]->(b)")
