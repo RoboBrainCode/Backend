@@ -4,14 +4,13 @@
 # transaction2 = " objects =  fetch ( \" ( { handle : 'wall' } ) - [ e : `HAS_MATERIAL` ] -> ( b ) \" ) "
 
 
-functions = ['fetch','SortBy','imap','ifilter','len','Belief','parents','handle']
+functions = ['fetch','SortBy','len','Belief','imap','ifilter','parents','handle']
 
 def web2rql(transaction):
 	query = transaction.split('\n')
 	status = False
 	for line in query:
 		# print line
-		found = False
 		import re
 		usr_defined_check = re.compile(r'=\s*lambda')
 		m = usr_defined_check.search(line)
@@ -23,8 +22,7 @@ def web2rql(transaction):
 
 		else:	
 			for item in functions:
-				if line.find(item) != -1 and found == False:
-					found = True
+				if line.find(item) != -1:
 					status = regex_check(line,item)
 					if status == False:
 						return False
@@ -57,7 +55,7 @@ def regex_check(transaction,funcName):
 		# print 'i m in'
 
 		## pure fetch cases
-		fetch_reg = re.compile(r'\s*(\b\w*\s*=)?\s*fetch'r'\s*[(]\s*\"\s*[(]\s*(\s*(\w+)?\s*(:\s*`\w+`)?)?\s*({\s*(\w+\s*:\s*\'\w+\'\s*)?})?\s*[)]'r'\s*-\s*[[]\s*\w*\s*((\*([0-9])?\.\.([0-9])?)|(:\s*`\w+`\s*{\s*(\w+\s*:\s*\'\w+\'\s*)?}))?\s*[]]'r'\s*->\s*[(]\s*\w*\s*(:\s*`\w+`)?\s*({\s*(\w+\s*:\s*\'\w+\'\s*)?})?\s*[)]'r'\s*\"\s*[)]')
+		fetch_reg = re.compile(r'\s*(\b\w*\s*=)?\s*fetch'r'\s*[(]\s*\"\s*[(]\s*(\s*(\w+)?\s*(:\s*`\w+`)?)?\s*({\s*(\w+\s*:\s*\'\w+\'\s*)?})?\s*[)]'r'\s*-\s*[[]\s*\w*\s*(:\s*`\w+`)?(\*([0-9])?\.\.([0-9])?)?\s*({\s*(\w+\s*:\s*\'\w+\'\s*)?})?\s*[]]'r'\s*->\s*[(]\s*\w*\s*(:\s*`\w+`)?\s*({\s*(\w+\s*:\s*\'\w+\'\s*)?})?\s*[)]'r'\s*\"\s*[)]')
 
 		m = fetch_reg.search(transaction)
 		if m:
@@ -70,7 +68,7 @@ def regex_check(transaction,funcName):
 
 	elif funcName == 'Belief' or funcName == 'len':
 		
-		Belief_reg = re.compile(r'\s*(\b\w*\s*=)?\s*Belief|len'r'\s*[(]\s*\w+\s*[)]')
+		Belief_reg = re.compile(r'\s*(\b\w*\s*=)?\s*Belief|len'r'\s*[(]\s*\w*\s*[)]')
 		m = Belief_reg.search(transaction)
 		if m:
 			if m.start() == 0:
@@ -121,13 +119,14 @@ def regex_check(transaction,funcName):
 				return False
 		else:
 			return False	
+		
+
 	
-	
+
 if __name__ == "__main__":
 	# print regex_check(transaction1,'fetch')		
 	# print web2rql(transaction1)
 	# print web2rql('path = SortBy(results,\'Belief\')')
 	# print web2rql("affordance = lambda n: fetch(\"{handle :'\" + n + \"'}) - [:`HasAffordance` ] -> (v)\")")
 	# print web2rql("iter = ifilter( lambda u: affordances(u),objects)")
-	# print web2rql("objects = fetch(\"({handle:'wall'})-[e*1..2]->({handle:'metal'})\")\nSortBy(objects,'Belief')")
-	print	web2rql("len(objects)")
+	print web2rql("fetch(\"({handle:'standing_human'})-[:`CAN_USE`]->(v)\")")	
