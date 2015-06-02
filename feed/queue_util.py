@@ -11,12 +11,14 @@ conn = boto.sqs.connect_to_region(
     aws_access_key_id='AKIAIDKZIEN24AUR7CJA', 
     aws_secret_access_key='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')
 
-feed_queue = conn.create_queue('feed_queue')
+feed_queue = conn.create_queue('weaverFeed_queue')
 
 def add_feed_to_queue(json_feed):
     m = RawMessage()
     try:
-        m.set_body(json.dumps(json_feed, default=json_util.default))
+        msg=json.dumps(json_feed, default=json_util.default)
+        print 'Posting Message:\n',msg
+        m.set_body(msg)
         feed_queue.write(m)
     except Exception, e:
         print traceback.format_exc()
