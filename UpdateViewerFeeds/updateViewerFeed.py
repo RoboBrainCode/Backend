@@ -65,12 +65,20 @@ def viewerFeedsUpdate_deprecated():
     """
     different_projects = brain_feeds.distinct('source_url')
     print different_projects
-    different_projects.remove(None)
-    different_projects.remove('')
-    different_projects.remove('http://image-net.org')
-    different_projects.remove('http://wordnet.princeton.edu/')
+    if None in different_projects:
+        different_projects.remove(None)
+    if '' in different_projects:
+        different_projects.remove('')
+    if 'http://image-net.org' in different_projects:
+        different_projects.remove('http://image-net.org')
+    if 'http://wordnet.princeton.edu/' in different_projects:      
+        different_projects.remove('http://wordnet.princeton.edu/')
+    if 'hallucinating humans' in different_projects:      
+        different_projects.remove('hallucinating humans')
+    
     print different_projects
     different_projects = sorted(different_projects,key=len) 
+    random.shuffle(different_projects)
     feeds_each_project = {}
     feeds_count = {}
     for url in different_projects:
@@ -81,9 +89,13 @@ def viewerFeedsUpdate_deprecated():
     overall_counter = 0
     level = 0
     first_time = True
+    
+    total_count = 0
+    viewer_feeds.drop()
     while True:
         toBreak = True
         remaining_projects = []
+        random.shuffle(different_projects)
         for url in different_projects:
             if feeds_count[url] > level:
                 print url
@@ -94,15 +106,16 @@ def viewerFeedsUpdate_deprecated():
                 overall_counter += 1
                 remaining_projects.append(url)
                 toBreak = False
-                if overall_counter % 100 == 0:
+                if overall_counter % 5 == 0:
                     if first_time:
                         viewer_feeds.drop()
                         first_time = False
+                    random.shuffle(feeds_to_push)
                     viewer_feeds.insert(feeds_to_push)
                     feeds_to_push = []
+        total_count += 1
         different_projects = remaining_projects
-
-        if toBreak:
+        if toBreak or total_count > 500:
             break
 
 
@@ -121,7 +134,7 @@ if __name__=="__main__":
     establishConnection()
     
     coin_toss = random.random()
-    if coin_toss < 0.6:
+    if coin_toss < 1.1:
         viewerFeedsUpdate_deprecated()
     else:
         viewerFeedsUpdate()
