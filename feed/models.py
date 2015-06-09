@@ -1,5 +1,5 @@
 from django.db import models
-from djangotoolbox.fields import ListField
+from djangotoolbox.fields import ListField,DictField
 from datetime import datetime
 from django.db.models.signals import post_save
 from queue_util import add_feed_to_queue
@@ -93,6 +93,9 @@ class JsonFeeds(models.Model):
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
     username = models.TextField()
+    nodeProps=DictField()
+    edgeProps=DictField()
+
 
     def to_json(self):
         return {"_id":self.id,
@@ -134,8 +137,8 @@ def postSaveJson(**kwargs):
         hashtags=instance.hashtags,
         jsonfeed_id=instance.id,
         username=instance.username,
-        nodeProps:instance.nodeProps,
-        edgeProps:self.edgeProps
+        nodeProps=instance.nodeProps,
+        edgeProps=instance.edgeProps
     )
     media = []
     mediatype = []

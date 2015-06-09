@@ -135,7 +135,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'rest_api',
     'django_mongodb_engine',
-    'corsheaders'
+    'corsheaders',
 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
