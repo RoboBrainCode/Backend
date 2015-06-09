@@ -124,10 +124,8 @@ class JsonFeeds(models.Model):
 
 def postSaveJson(**kwargs):
     instance = kwargs.get('instance')
-    print "Post Saving JsonFeed: ", instance.to_json()
-    
     toBeAddedToQueue=instance.to_json()
-
+    print "Post Saving JsonFeed:Pre: ", toBeAddedToQueue
     #Saving JsonFeed to BrainFeed
     brain_feed = BrainFeeds(
         feedtype=instance.feedtype,
@@ -151,6 +149,7 @@ def postSaveJson(**kwargs):
     brain_feed.save()
     retObj=BrainFeeds.objects.latest('id')
     toBeAddedToQueue['_id']=retObj.id
+    print "Post Saving JsonFeed:Post: ", toBeAddedToQueue
     add_feed_to_queue(toBeAddedToQueue)
 
     #Saving viewer feed
