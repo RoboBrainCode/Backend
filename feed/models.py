@@ -43,6 +43,8 @@ class BrainFeeds(models.Model):
     update_score = models.BooleanField(default=True,db_index=True)
     meta = {'indexes':['update_score']}
     log_normalized_feed_show = models.FloatField(default=1.0)
+    nodeProps=DictField()
+    edgeProps=DictField()
 
 
     def to_json(self):
@@ -62,7 +64,10 @@ class BrainFeeds(models.Model):
             "username":self.username,
             "score":self.score,
             "log_normalized_feed_show":self.log_normalized_feed_show,
-            "update_score":self.update_score
+            "update_score":self.update_score,
+            "nodeProps":self.nodeProps,
+            "edgeProps":self.edgeProps
+            
             }
 
     class Meta:
@@ -105,7 +110,10 @@ class JsonFeeds(models.Model):
             "hashtags":self.hashtags,
             "upvotes":self.upvotes,
             "downvotes":self.downvotes,
-            "username":self.username
+            "username":self.username,
+            "nodeProps":self.nodeProps,
+            "edgeProps":self.edgeProps
+            
             }
 
     class Meta:
@@ -125,7 +133,9 @@ def postSaveJson(**kwargs):
         source_url=instance.source_url,
         hashtags=instance.hashtags,
         jsonfeed_id=instance.id,
-        username=instance.username
+        username=instance.username,
+        nodeProps:instance.nodeProps,
+        edgeProps:self.edgeProps
     )
     media = []
     mediatype = []
