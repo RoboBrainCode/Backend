@@ -1,7 +1,7 @@
 from django.forms import widgets
 from rest_framework import serializers
 from feed.models import JsonFeeds
-from djangotoolbox.fields import ListField
+from djangotoolbox.fields import ListField,DictField
 
 import drf_compound_fields.fields as drf
 from datetime import datetime
@@ -26,6 +26,8 @@ class FeedSerializer(serializers.Serializer):
     graphStructure = drf.ListField(serializers.CharField(),required=False)
     mediashow = drf.ListField(serializers.CharField(),required=False)
     username = serializers.CharField(required=False)
+    nodeProps= drf.DictField(drf.DictField(serializers.CharField()),required=False)
+    edgeProps= drf.DictField(drf.DictField(serializers.CharField()),required=False)
 
     def restore_object(self, attrs, instance=None):
         """

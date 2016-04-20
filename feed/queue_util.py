@@ -16,6 +16,7 @@ feed_queue = conn.create_queue('weaverFeed_queue')
 def add_feed_to_queue(json_feed):
     m = RawMessage()
     try:
+	print 'Queue Utils',json_feed
         msg=json.dumps(json_feed, default=json_util.default)
         print 'Posting Message:\n',msg
         m.set_body(msg)
