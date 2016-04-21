@@ -19,7 +19,7 @@ DATABASES = {
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
-        'HOST': '52.39.63.201',# ec2-54-148-208-139.us-west-2.compute.amazonaws.com Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'HOST': '52.39.110.147',# ec2-54-148-208-139.us-west-2.compute.amazonaws.com Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': 27017,                      # Set to empty string for default.
     }
 }
